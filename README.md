@@ -1,6 +1,6 @@
 # AngularWasmPdf
 
-example project of wasm-pdf [WASM-PDF](https://github.com/jussiniinikoski/wasm-pdf) with angular 13.
+example project of [wasm-pdf](https://github.com/jussiniinikoski/wasm-pdf) with angular 13.
 
 _Steps_
 
