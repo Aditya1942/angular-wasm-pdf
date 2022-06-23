@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularWasmPdf</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+    <script>
+      let pdfFileBlobURL = null;
+      const generatePDF = (data) => {
+        const blob = new Blob([data], {
+          type: "application/pdf",
+        });
+        if (pdfFileBlobURL !== null) {
+          URL.revokeObjectURL(pdfFileBlobURL);
+        }
+        pdfFileBlobURL = URL.createObjectURL(blob);
+        // for debugging purposes, open another window
+        // window.open(pdfFileBlobURL, '_blank');
+        console.log(pdfFileBlobURL);
+        const generatePDFEvent = new CustomEvent("custom:wasm-pdf", {
+          bubbles: true,
+          cancelable: true,
+
+          composed: true,
+          detail: {
+            pdfFileBlobURL: pdfFileBlobURL,
+            data: data,
+          },
+        });
+        document.dispatchEvent(generatePDFEvent);
+        // window.location.href = pdfFileBlobURL;
+      };
+
+      const jsonOut = (data) => {
+        console.log(JSON.stringify(data));
+      };
+    </script>
+  </body>
+</html>
